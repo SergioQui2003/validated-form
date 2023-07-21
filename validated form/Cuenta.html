@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Cuenta.css">
+    <link rel="icon" href="IMG/Icono.ico">
+    <title>Cuenta</title>
+</head>
+<body>
+    <!-- ESTE ES EL MENU BLANCO CON CADA UNA DE LAS PAGINAS -->
+
+    <div id="login">
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form id="registrationForm" onsubmit="return validarFormulario()">
+                <h1>Crear Cuenta</h1><br>
+                <input type="text" placeholder="Nombre" id="nameInput" required>
+                <input type="text" placeholder="Teléfono" id="phoneInput" required>
+                <input type="email" placeholder="Email" id="emailInput" required>
+                <input type="text" placeholder="N° de identificación" id="Cedula" required>
+                <input type="password" placeholder="Contraseña" id="passwordInput" required><br>
+                <button type="submit">Regístrate</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form id="login-form" onsubmit="return redirigirPagina()">
+                <h1>Iniciar Sesión</h1><br>
+                <input type="text" placeholder="N° de identificación" id="lsap" required/>
+                <input type="password" placeholder="Contraseña" id="lpass" required/>
+                <a href="Recuperacion.html"><u>Olvidaste tu contraseña</u></a>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Bienvenido de <br> nuevo!</h1>
+                    <p>Inicia sesión con tus datos personales para continuar con nosotros</p>
+                    <button class="ghost" id="signIn">Iniciar Sesión</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hola usuario!</h1>
+                    <p>¡Registrate y se parte de nosotros!</p>
+                    <button class="ghost" id="signUp">Registrate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="Cuenta.js"></script>
+
+<!-- SCRIPT PARA EL REGISTRATE -->
+
+<script>
+    function validarFormulario() {
+        var nombre = document.getElementById('nameInput').value;
+        var telefono = document.getElementById('phoneInput').value;
+        var email = document.getElementById('emailInput').value;
+        var contraseña = document.getElementById('passwordInput').value;
+
+        // Validar campos vacíos
+        if (nombre.trim() === '' || telefono.trim() === '' || email.trim() === '' || contraseña.trim() === '') {
+            alert('Por favor, completa todos los campos.');
+            return false; // Evita enviar el formulario si faltan campos
+        }
+
+        // Validar espacios al principio de los campos
+        if (nombre.trim() !== nombre || telefono.trim() !== telefono || email.trim() !== email || contraseña.trim() !== contraseña) {
+            alert('Por favor, elimina los espacios al principio de los campos.');
+            return false; // Evita enviar el formulario si hay espacios al principio
+        }
+
+        // Validación para permitir solo correos terminados en "gmail.com" y "outlook.com"
+        var correoRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|outlook\.com)$/;
+
+        if (!correoRegex.test(email)) {
+            alert('Por favor, ingresa un correo válido terminado en ".com" o ".co".');
+            return false; // Evita enviar el formulario si el correo no cumple con el formato requerido
+        }
+
+        //  agregar más validaciones si es necesario
+
+        return true; // Permite enviar el formulario si todos los campos están completos y el correo es válido
+    }
+</script>
+
+
+
+
+<!-- INICIAR SESION -->
+
+<script>
+    function redirigirPagina() {
+        var usuario = document.getElementById('lsap').value;
+        var contraseña = document.getElementById('lpass').value;
+
+        // Validación para no aceptar espacios, caracteres especiales ni símbolos
+        var regex = /^[a-zA-Z0-9]+$/; // Solo letras y números
+
+        if (usuario === '' || contraseña === '') {
+            alert('Por favor, completa todos los campos.');
+            return false; // Evita enviar el formulario si faltan campos
+        }
+
+        if (!regex.test(usuario) || !regex.test(contraseña)) {
+            alert('El usuario y la contraseña no deben contener espacios, caracteres especiales ni símbolos.');
+            return false; // Evita enviar el formulario si los campos contienen espacios, caracteres especiales o símbolos
+        }
+
+        // Aquí puedes agregar más validaciones si es necesario
+
+        window.location.href = 'Ingreso.html'; // Redirige a la página deseada
+        return false; // Evita que el formulario se envíe por defecto
+    }
+</script>
+
+
+</body>
+</html>
